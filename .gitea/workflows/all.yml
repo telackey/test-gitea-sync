@@ -1,0 +1,23 @@
+name: Smoke Test
+
+on:
+  pull_request:
+    branches: '*'
+  push:
+    branches:
+      - main
+      - ci-test
+
+# Needed until we can incorporate docker startup into the executor container
+env:
+  DOCKER_HOST: unix:///var/run/dind.sock
+
+jobs:
+  test:
+    name: "Run basic test suite"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Clone project repository"
+        uses: actions/checkout@v3
+      - name: "Print Date"
+        run: date
